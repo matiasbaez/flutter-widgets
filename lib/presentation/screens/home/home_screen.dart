@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:widgets_app/config/menu/menu_items.dart';
 
 class HomeScreen extends StatelessWidget {
+
+  static const String name = 'home_screen';
 
   const HomeScreen({super.key});
 
@@ -53,7 +56,12 @@ class _CustomListTile extends StatelessWidget {
       subtitle: Text( menuItem.subtitle ),
       leading: Icon( menuItem.icon, color: color.primary ),
       trailing: Icon( Icons.arrow_forward_ios_rounded, color: color.primary ),
-      onTap: () {},
+      onTap: () {
+        // Navigator.pushNamed(context, menuItem.link);
+        // context.pushNamed(menuItem.name)
+        // context.goNamed(menuItem.name);
+        context.push(menuItem.link);
+      },
     );
   }
 }
