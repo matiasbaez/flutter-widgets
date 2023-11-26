@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'package:colornames/colornames.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:widgets_app/presentation/providers/providers.dart';
@@ -34,6 +37,12 @@ class _ThemeChangerView extends ConsumerWidget {
 
   const _ThemeChangerView();
 
+  void copyToClipBoard(BuildContext context, String value) {
+    Clipboard.setData(ClipboardData(text: value)).then((_) {
+      // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Color copied to clipboard")));
+    });
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
@@ -43,19 +52,24 @@ class _ThemeChangerView extends ConsumerWidget {
     return ListView.builder(
       itemCount: colorList.length,
       itemBuilder: (BuildContext context, int index) {
+
         final Color color = colorList[index];
+        final String radixString = color.value.toRadixString(16).toUpperCase();
+
         return ListTile(
           onTap: () {
             ref.read(selectedColorProvider.notifier).state = index;
+            copyToClipBoard(context, radixString);
           },
           leading: CircleAvatar(backgroundColor: colorList[index]),
-          title: Text('#${color.value.toRadixString(16).toUpperCase()}'),
-          subtitle: Text('${color.value}'),
+          title: Text(color.colorName),
+          subtitle: Text('#$radixString'),
           trailing: Switch(
             value: index == selectedColor,
             activeColor: color,
-            onChanged: (value) {
-              ref.read(selectedColorProvider.notifier).state = value ? index : 0;
+            onChanged: (value) async {
+              ref.read(selectedColorProvider.notifier).state = index;
+              copyToClipBoard(context, radixString);
             }
           ),
         );
