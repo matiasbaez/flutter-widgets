@@ -24,6 +24,7 @@ const appMenuItems = <MenuItem>[
   MenuItem(title: 'Cards', subtitle: 'Some flutter cards', link: '/cards', icon: Icons.credit_card),
   MenuItem(title: 'Infinite Scroll', subtitle: 'Some flutter widgets', link: '/infinite', icon: Icons.circle_outlined),
   MenuItem(title: 'Progress', subtitle: 'Some flutter widgets', link: '/progress', icon: Icons.refresh),
+  MenuItem(title: 'Riverpod Counter', subtitle: 'Some flutter cards', link: '/counter', icon: Icons.add_circle_outline),
   MenuItem(title: 'Snackbar', subtitle: 'Some flutter widgets', link: '/snackbar', icon: Icons.snapchat),
   MenuItem(title: 'Ui Controls', subtitle: 'Some flutter widgets', link: '/uicontrols', icon: Icons.settings),
 ];
