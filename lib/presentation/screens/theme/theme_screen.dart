@@ -35,6 +35,8 @@ class ThemeScren extends ConsumerWidget {
 
 class _ThemeChangerView extends ConsumerWidget {
 
+  final defaultThemeColor = 0;
+
   const _ThemeChangerView();
 
   void copyToClipBoard(BuildContext context, String value) {
@@ -58,7 +60,7 @@ class _ThemeChangerView extends ConsumerWidget {
 
         return ListTile(
           onTap: () {
-            ref.read(selectedColorProvider.notifier).state = index;
+            ref.read(selectedColorProvider.notifier).update((state) => state == index ? defaultThemeColor : index);
             copyToClipBoard(context, radixString);
           },
           leading: CircleAvatar(backgroundColor: colorList[index]),
@@ -68,7 +70,7 @@ class _ThemeChangerView extends ConsumerWidget {
             value: index == selectedColor,
             activeColor: color,
             onChanged: (value) async {
-              ref.read(selectedColorProvider.notifier).state = index;
+              ref.read(selectedColorProvider.notifier).state = value ? index : defaultThemeColor ;
               copyToClipBoard(context, radixString);
             }
           ),
