@@ -15,15 +15,15 @@ class ThemeScren extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final bool isDarkMode = ref.watch(isDarkModeProvider);
+    final appTheme = ref.watch(themeNotifierProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Theme Changer'),
         actions: [
           IconButton(
-            onPressed: () => ref.read(isDarkModeProvider.notifier).update((state) => !state),
-            icon: Icon( isDarkMode ?  Icons.light_mode_outlined : Icons.dark_mode_outlined )
+            onPressed: () => ref.read(themeNotifierProvider.notifier).toggleDarkMode(),
+            icon: Icon( appTheme.isDarkMode ? Icons.light_mode_outlined : Icons.dark_mode_outlined )
           ),
         ],
       ),
@@ -49,7 +49,7 @@ class _ThemeChangerView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
 
     final colorList = ref.watch(colorListProvider);
-    final selectedColor = ref.watch(selectedColorProvider);
+    final appTheme = ref.watch(themeNotifierProvider);
 
     return ListView.builder(
       itemCount: colorList.length,
@@ -60,17 +60,19 @@ class _ThemeChangerView extends ConsumerWidget {
 
         return ListTile(
           onTap: () {
-            ref.read(selectedColorProvider.notifier).update((state) => state == index ? defaultThemeColor : index);
+            final selectedColor = (appTheme.selectedColor == index) ? defaultThemeColor : index;
+            ref.read(themeNotifierProvider.notifier).changeSelectedColor(selectedColor);
             copyToClipBoard(context, radixString);
           },
           leading: CircleAvatar(backgroundColor: colorList[index]),
           title: Text(color.colorName),
           subtitle: Text('#$radixString'),
           trailing: Switch(
-            value: index == selectedColor,
+            value: index == appTheme.selectedColor,
             activeColor: color,
             onChanged: (value) async {
-              ref.read(selectedColorProvider.notifier).state = value ? index : defaultThemeColor ;
+              final selectedColor = value ? index : defaultThemeColor;
+              ref.read(themeNotifierProvider.notifier).changeSelectedColor(selectedColor);
               copyToClipBoard(context, radixString);
             }
           ),
