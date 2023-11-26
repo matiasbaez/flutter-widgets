@@ -27,4 +27,5 @@ const appMenuItems = <MenuItem>[
   MenuItem(title: 'Riverpod Counter', subtitle: 'Some flutter cards', link: '/counter', icon: Icons.add_circle_outline),
   MenuItem(title: 'Snackbar', subtitle: 'Some flutter widgets', link: '/snackbar', icon: Icons.snapchat),
   MenuItem(title: 'Ui Controls', subtitle: 'Some flutter widgets', link: '/uicontrols', icon: Icons.settings),
+  MenuItem(title: 'Theme Changer', subtitle: 'Some flutter widgets', link: '/theme-changer', icon: Icons.color_lens_outlined),
 ];

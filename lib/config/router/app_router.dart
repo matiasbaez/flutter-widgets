@@ -68,6 +68,12 @@ final GoRouter appRouter = GoRouter(
           builder: (BuildContext context, GoRouterState state) => const UiControlScreen(),
         ),
 
+        GoRoute(
+          path: 'theme-changer',
+          name: ThemeScren.name,
+          builder: (BuildContext context, GoRouterState state) => const ThemeScren(),
+        ),
+
       ],
     ),
   ],
